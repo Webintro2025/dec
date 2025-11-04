@@ -1,0 +1,152 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Prisma schema generated to mirror existing Mongoose models in src/app/models
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  description String?
+  images    String[]  @default([])
+  products  Product[]
+  createdAt DateTime  @default(now())
+
+  @@index([name])
+}
+
+model Product {
+  id           String    @id @default(uuid())
+  name         String
+  description  String?
+  images       String[]  @default([])
+  categoryId   String
+  category     Category  @relation(fields: [categoryId], references: [id])
+  price        Float
+  quantity     Int       @default(0)
+  dimension    String?
+  materialCare String?
+  createdAt    DateTime  @default(now())
+
+  carts        CartItem[]
+  orderItems   OrderItem[]
+
+  @@index([createdAt])
+  @@index([categoryId, createdAt])
+}
+
+model User {
+  id         String    @id @default(uuid())
+  email      String    @unique
+  mobile     String?   @unique
+  otp        String?
+  otpExpires DateTime?
+  isVerified Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+
+  cart       Cart?
+  customerInfos CustomerInfo[]
+  orders     Order[]
+
+  @@index([mobile])
+}
+
+model Cart {
+  id        String     @id @default(uuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id])
+  items     CartItem[]
+  updatedAt DateTime   @updatedAt
+
+  @@index([userId])
+}
+
+model CartItem {
+  id        String  @id @default(uuid())
+  cartId    String
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  name      String
+  price     Float
+  quantity  Int     @default(1)
+}
+
+enum OrderStatus {
+  pending
+  confirmed
+  shipped
+  delivered
+  cancelled
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+  refunded
+}
+
+model Order {
+  id            String      @id @default(uuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+  orderNumber   String      @unique
+  items         OrderItem[]
+
+  // Shipping details (embedded in original Mongoose schema)
+  shipName      String
+  shipEmail     String?
+  shipPhone     String
+  shipAddressLine1 String
+  shipAddressLine2 String?
+  shipCity      String
+  shipState     String
+  shipPostalCode String
+  shipCountry   String
+
+  total         Float
+  status        OrderStatus   @default(pending)
+  paymentStatus PaymentStatus @default(pending)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([userId])
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  name      String
+  price     Float
+  quantity  Int
+  subtotal  Float
+}
+
+model CustomerInfo {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  name         String
+  email        String?
+  phone        String
+  addressLine1 String
+  addressLine2 String?
+  city         String
+  state        String
+  postalCode   String
+  country      String
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId])
+}
