@@ -2,14 +2,14 @@
   "name": "decoreraisa",
   "version": "0.1.0",
   "private": true,
-"scripts": {
-  "dev": "next dev --turbopack",
-  "build": "prisma generate && next build --turbopack",
-  "start": "next start",
-  "lint": "eslint",
-  "postinstall": "prisma generate"
-}
-,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "prisma generate && next build --turbopack",
+    "vercel-build": "prisma generate && next build --turbopack",
+    "start": "next start",
+    "lint": "eslint",
+    "postinstall": "prisma generate"
+  },
   "dependencies": {
     "@prisma/client": "^5.8.0",
     "@reduxjs/toolkit": "^1.9.7",

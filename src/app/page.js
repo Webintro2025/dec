@@ -9,6 +9,7 @@ import Products from "@/components/Product";
 import AllServices from "@/components/AllServices";
 import CategoryWiseDist from "@/components/CategoryWiseDist";
 import Cousersal from "@/components/cousersal";
+import WhyChooseUs from "@/components/WhyChooseUs";
 
 export default function Home() {
   return (
@@ -22,7 +23,7 @@ export default function Home() {
   <Newsection />
   <Cousersal />
   <CategoryWiseDist />
-
+<WhyChooseUs />
   </>
   );
 }
