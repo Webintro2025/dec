@@ -26,6 +26,16 @@ async function fetchProduct(id) {
   const url = `${baseUrl}/api/products?id=${encodeURIComponent(id)}`;
   const response = await fetch(url, { cache: 'no-store' });
 
+  // Temporary debug logging to help diagnose production vs local differences.
+  // This will appear in server logs on Vercel for the page request.
+  try {
+    // avoid logging large bodies; log URL and status only
+    // eslint-disable-next-line no-console
+    console.log('[product-page] fetchProduct url=', url, ' status=', response.status);
+  } catch (e) {
+    // ignore logging errors
+  }
+
   if (response.status === 404) {
     return null;
   }
