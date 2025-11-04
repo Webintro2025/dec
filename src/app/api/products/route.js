@@ -219,16 +219,61 @@ export async function POST(req) {
   const { name, description, category, price, quantity, dimension, materialCare, images } = payload;
 
   if (!name || !name.trim()) return NextResponse.json({ message: 'Product name is required' }, { status: 400 });
-  if (!category || !`${category}`.trim()) return NextResponse.json({ message: 'Category is required' }, { status: 400 });
+
+  // Normalize category input: accept id string, an object with id, or a category name
+  let categoryValue = category;
+  try {
+    if (categoryValue && typeof categoryValue === 'string') {
+      const t = categoryValue.trim();
+      // If body sent a JSON stringified object, try parse
+      if ((t.startsWith('{') && t.endsWith('}')) || (t.startsWith('[') && t.endsWith(']'))) {
+        try {
+          const parsed = JSON.parse(t);
+          if (parsed?.id) categoryValue = parsed.id;
+          else if (parsed?.name) categoryValue = parsed.name;
+        } catch (e) {
+          // ignore
+        }
+      }
+    } else if (categoryValue && typeof categoryValue === 'object') {
+      if (categoryValue.id) categoryValue = categoryValue.id;
+      else if (categoryValue.name) categoryValue = categoryValue.name;
+    }
+  } catch (e) {
+    // ignore normalization errors
+  }
+
+  if (!categoryValue || !String(categoryValue).trim()) return NextResponse.json({ message: 'Category is required' }, { status: 400 });
 
   const priceNum = toNumber(price);
   if (priceNum === undefined || Number.isNaN(priceNum)) return NextResponse.json({ message: 'Price must be a valid number' }, { status: 400 });
   const quantityNum = toNumber(quantity);
   if (Number.isNaN(quantityNum)) return NextResponse.json({ message: 'Quantity must be a valid number' }, { status: 400 });
 
-  // verify category exists
-  const categoryDoc = await prisma.category.findUnique({ where: { id: category } });
-  if (!categoryDoc) return NextResponse.json({ message: 'Invalid category specified' }, { status: 400 });
+  // verify category exists. Try id lookup first, then fallback to name match (case-insensitive)
+  let categoryDoc = null;
+  const attempted = [];
+  const candidate = String(categoryValue).trim();
+  attempted.push({ kind: 'raw', value: candidate });
+
+  // try by id
+  try {
+    categoryDoc = await prisma.category.findUnique({ where: { id: candidate } });
+  } catch (e) {
+    // ignore
+  }
+
+  // try by name if id lookup failed
+  if (!categoryDoc) {
+    try {
+      categoryDoc = await prisma.category.findFirst({ where: { name: { equals: candidate, mode: 'insensitive' } } });
+      attempted.push({ kind: 'name', value: candidate });
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  if (!categoryDoc) return NextResponse.json({ message: 'Invalid category specified', debug: { attempted } }, { status: 400 });
 
   const normalized = name.trim();
 
@@ -251,5 +296,99 @@ export async function POST(req) {
   } catch (err) {
     console.error('Failed to create product', err?.message || err);
     return NextResponse.json({ message: 'Unable to create product' }, { status: 500 });
+  }
+}
+
+export async function DELETE(req) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const debugMode = (searchParams.get('debug') === '1' || process.env.NODE_ENV !== 'production');
+
+    // collect candidate id values from query and body
+    let productId = searchParams.get('id');
+    let bodyId;
+    try {
+      const text = await req.text();
+      if (text) {
+        const body = JSON.parse(text);
+        bodyId = body?.id || body?.productId || body?.product_id;
+      }
+    } catch (e) {
+      // ignore parse errors (body may be empty)
+    }
+    if (!productId) productId = bodyId;
+
+    if (!productId) return NextResponse.json({ message: 'Product id is required' }, { status: 400 });
+
+    // normalize: trim, remove surrounding quotes, try decodeURIComponent
+    const candidateRaw = String(productId);
+    const candidateTrim = candidateRaw.trim();
+    const candidateStripQuotes = candidateTrim.replace(/^['"]|['"]$/g, '');
+    let candidateDecoded;
+    try {
+      candidateDecoded = decodeURIComponent(candidateStripQuotes);
+    } catch (e) {
+      candidateDecoded = candidateStripQuotes;
+    }
+
+    const tried = [candidateRaw, candidateTrim, candidateStripQuotes];
+    if (candidateDecoded && !tried.includes(candidateDecoded)) tried.push(candidateDecoded);
+
+    // try findUnique first, then fall back to findFirst with OR of attempted values
+    let existing = null;
+    try {
+      existing = await prisma.product.findUnique({ where: { id: candidateStripQuotes } });
+    } catch (e) {
+      // ignore
+    }
+
+    if (!existing) {
+      try {
+        existing = await prisma.product.findFirst({ where: { OR: tried.map((v) => ({ id: v })) } });
+      } catch (e) {
+        // ignore
+      }
+    }
+
+    if (!existing) {
+      const payload = { message: 'Product not found' };
+      if (debugMode) payload.debug = { attempted: tried };
+      return NextResponse.json(payload, { status: 404 });
+    }
+
+    const pid = existing.id;
+
+    // delete dependent records first to avoid FK constraint issues
+    await prisma.$transaction([
+      prisma.orderItem.deleteMany({ where: { productId: pid } }),
+      prisma.cartItem.deleteMany({ where: { productId: pid } }),
+      prisma.product.delete({ where: { id: pid } }),
+    ]);
+
+    // attempt to remove uploaded images from disk (only for local uploads under /uploads/products)
+    try {
+      if (Array.isArray(existing.images)) {
+        for (const img of existing.images) {
+          if (typeof img === 'string' && img.startsWith('/uploads/products/')) {
+            const rel = img.replace(/^\//, '');
+            const fp = path.join(process.cwd(), 'public', rel);
+            try {
+              if (fs.existsSync(fp)) fs.unlinkSync(fp);
+            } catch (e) {
+              // non-fatal
+            }
+          }
+        }
+      }
+    } catch (e) {
+      // ignore file cleanup errors
+    }
+
+    const resp = { message: 'Product deleted' };
+    if (debugMode) resp.deleted = { id: pid };
+    return NextResponse.json(resp);
+  } catch (err) {
+    console.error('Failed to delete product', err?.message || err);
+    return NextResponse.json({ message: 'Unable to delete product' }, { status: 500 });
   }
 }
