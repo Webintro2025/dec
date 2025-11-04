@@ -20,8 +20,11 @@ const formatCurrency = (value) => {
 
 async function fetchProduct(id) {
   // Make a server-side fetch using configured NEXT_PUBLIC_SITE_URL or localhost
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  const response = await fetch(`${baseUrl}/api/products?id=${id}`, { cache: 'no-store' });
+  // In production (Vercel) avoid hard-coding localhost. If NEXT_PUBLIC_SITE_URL is provided use it,
+  // otherwise use a relative path so the request is made to the current host (works on Vercel).
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? '';
+  const url = `${baseUrl}/api/products?id=${encodeURIComponent(id)}`;
+  const response = await fetch(url, { cache: 'no-store' });
 
   if (response.status === 404) {
     return null;
