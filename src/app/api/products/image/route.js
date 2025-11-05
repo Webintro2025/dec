@@ -3,7 +3,16 @@ import prisma from '../../../utils/prisma';
 
 export async function GET(req) {
   try {
-    const { searchParams } = new URL(req.url);
+    // safe searchParams helper: handle relative req.url values by providing a base
+    function getSearchParamsFromReq(r) {
+      try { return new URL(r.url).searchParams; } catch (e) {
+        const host = r.headers?.get('host') || r.headers?.host || 'localhost:3000';
+        const proto = r.headers?.get('x-forwarded-proto') || 'http';
+        return new URL(r.url, `${proto}://${host}`).searchParams;
+      }
+    }
+
+    const { searchParams } = (() => ({ searchParams: getSearchParamsFromReq(req) }))();
     const productId = searchParams.get('productId');
     const idx = parseInt(searchParams.get('index') || '0', 10);
 
@@ -40,7 +49,16 @@ export async function GET(req) {
     // If saved as a public path (e.g. "/uploads/products/.."), redirect to that path so Next.js serves it from /public
     if (typeof data === 'string' && data.startsWith('/')) {
       // Build absolute URL relative to the incoming request (works for localhost and deployed sites)
-      const redirectUrl = new URL(data, req.url).toString();
+      let base;
+      try {
+        // If req.url is already absolute this will work
+        base = new URL(req.url).origin;
+      } catch (e) {
+        const host = req.headers?.get('host') || req.headers?.host || 'localhost:3000';
+        const proto = req.headers?.get('x-forwarded-proto') || 'http';
+        base = `${proto}://${host}`;
+      }
+      const redirectUrl = new URL(data, base).toString();
       return NextResponse.redirect(redirectUrl);
     }
 

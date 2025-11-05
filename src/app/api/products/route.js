@@ -3,6 +3,27 @@ import prisma from '../../utils/prisma';
 import fs from 'fs';
 import path from 'path';
 
+// Helper: safely get searchParams from a Request-like object.
+// Some environments provide a relative url ("/api/...") which new URL() rejects without a base.
+function getSearchParamsFromReq(req) {
+  try {
+    const url = new URL(req.url);
+    return url.searchParams;
+  } catch (e) {
+    // fallback: build an absolute base using headers when available
+    try {
+      const host = req.headers?.get('host') || req.headers?.host || 'localhost:3000';
+      const proto = req.headers?.get('x-forwarded-proto') || 'http';
+      const url = new URL(req.url, `${proto}://${host}`);
+      return url.searchParams;
+    } catch (err) {
+      // As a last resort, try with a localhost base
+      const url = new URL(req.url, 'http://localhost:3000');
+      return url.searchParams;
+    }
+  }
+}
+
 // Save uploaded file to public/uploads/products and return a public URL (/uploads/products/..)
 async function saveFileToUploads(file) {
   if (!file || typeof file.arrayBuffer !== 'function' || file.size === 0) return null;
@@ -143,7 +164,7 @@ function toNumber(v) {
 }
 
 export async function GET(req) {
-  const { searchParams } = new URL(req.url);
+  const searchParams = getSearchParamsFromReq(req);
   const productId = searchParams.get('id');
   const limitParam = parseInt(searchParams.get('limit') || '', 10);
   const maxLimit = 2000;
@@ -301,7 +322,7 @@ export async function POST(req) {
 
 export async function DELETE(req) {
   try {
-    const { searchParams } = new URL(req.url);
+    const searchParams = getSearchParamsFromReq(req);
     const debugMode = (searchParams.get('debug') === '1' || process.env.NODE_ENV !== 'production');
 
     // collect candidate id values from query and body
