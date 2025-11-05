@@ -68,7 +68,7 @@ export default function AllServices({ services = DEFAULT_SERVICES }) {
 
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-start">
 					{services.map((s) => (
-						<article key={s.id} className="bg-transparent rounded-xl overflow-hidden">
+						<article key={s.id} className="bg-transparent rounded-xl overflow-hidden relative">
 							<div className="relative">
 								<img
 									src={s.image}
@@ -76,8 +76,15 @@ export default function AllServices({ services = DEFAULT_SERVICES }) {
 									className="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover"
 								/>
 
+								{/* Clickable overlay: clicking the card scrolls/jumps to #products */}
+								<button
+									onClick={handleServiceClick}
+									aria-label={`View products for ${s.title}`}
+									className="absolute inset-0 w-full h-full bg-transparent"
+								/>
+
 								{/* Title overlay only, transparent background */}
-								<div className="absolute inset-0 flex items-end justify-center">
+								<div className="absolute inset-0 flex items-end justify-center pointer-events-none">
 									<div className="w-full bg-gradient-to-t from-black/60 to-transparent py-3 text-center">
 										<h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white tracking-wider uppercase">{s.title}</h3>
 									</div>
