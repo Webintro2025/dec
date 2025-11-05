@@ -4,6 +4,7 @@ import Link from "next/link";
 
 const DEFAULT_SLIDES = [
 	{ id: 1, img: "/slide1.png" },
+	{ id: 2, img: "/slide2.png" },
 	
 ];
 
