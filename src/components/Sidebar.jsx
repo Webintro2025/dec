@@ -137,7 +137,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
 <div className="mt-4">
             <Link
-              href="/customize-Project"
+              href="/customize-lights"
               onClick={() => onClose?.()}
               className="group flex w-full items-start justify-between gap-3 rounded-2xl border border-gray-100 bg-white px-4 py-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-amber-200 hover:shadow-lg"
             >
