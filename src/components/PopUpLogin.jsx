@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const parseResponsePayload = async (response) => {
 	const rawBody = await response.text();
@@ -19,6 +19,7 @@ const Popup = ({ isOpen, onClose, onSuccess }) => {
 	const [step, setStep] = useState(1);
 	const [loading, setLoading] = useState(false);
 	const [feedback, setFeedback] = useState({ text: "", isError: false });
+	const emailRef = useRef(null);
 
 	useEffect(() => {
 		if (!isOpen) {
@@ -29,6 +30,14 @@ const Popup = ({ isOpen, onClose, onSuccess }) => {
 			setFeedback({ text: "", isError: false });
 		}
 	}, [isOpen]);
+
+	const handleSubscribeNow = () => {
+		// show the email form and focus the input
+		setStep(1);
+		setTimeout(() => {
+			emailRef.current?.focus();
+		}, 60);
+	};
 
 	if (!isOpen) return null;
 
@@ -97,20 +106,34 @@ const Popup = ({ isOpen, onClose, onSuccess }) => {
 					<div className="w-full max-w-[600px] bg-white shadow-lg rounded-md overflow-hidden flex relative flex-col md:flex-row md:h-[460px]">
 						{/* Left Image (hidden on small screens) */}
 						<div className="hidden md:block md:w-1/2 md:h-full">
-							<img src="/22.jpg" alt="Lounge" className="w-full h-full object-cover" />
+							<img src="/15.JPG" alt="Lounge" className="w-full h-full object-cover" />
 						</div>
 
 						{/* Right Form Section */}
 						<div className="w-full md:w-1/2 p-3 md:p-6 relative flex flex-col justify-center md:h-full">
 					{/* Close Button */}
-							<button
-								type="button"
-								className="absolute top-4 right-4 text-gray-600 hover:text-black text-2xl p-2"
-								onClick={closePopup}
-								aria-label="Close"
-							>
-								&times;
-							</button>
+						<button
+							type="button"
+							className="absolute top-4 right-4 text-gray-600 hover:text-black text-2xl p-2 z-50"
+							onClick={closePopup}
+							aria-label="Close"
+						>
+							&times;
+						</button>
+
+					{/* Promo banner (matches attached design) */}
+					<div className="w-full mb-4">
+						<div className="mx-auto w-full p-4 text-center ">
+					
+							<h3 className="text-sm md:text-base font-semibold text-gray-800">
+								EXCLUSIVE FIRST-TIME SHOPPER PERK!
+							</h3>
+							<p className="text-xs text-gray-600 mt-1 mb-3">
+								Subscribe now and unlock your exclusive first-time shopper discount.
+							</p>
+							
+						</div>
+					</div>
 
 					{/* Logo */}
 							

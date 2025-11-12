@@ -49,7 +49,7 @@ const HomeBanner = () => {
 			)}
 
 			{mode === "desktop" && (
-				<div className="relative w-full min-h-[90vh]">
+				<div className="relative w-full min-h-[95vh] lg:min-h-[100vh]">
 					{images.map((src, i) => (
 						<div
 							key={src}
