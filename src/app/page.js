@@ -11,6 +11,7 @@ import CategoryWiseDist from "@/components/CategoryWiseDist";
 import Cousersal from "@/components/cousersal";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Video from "@/components/Video";
+import Testimonial from "@/components/Testimonial";
 
 
 export default function Home() {
@@ -18,10 +19,11 @@ export default function Home() {
   <>
  
   <HomeBanner />
-  <AllServices />
+  <Products />
+
   <Section1 />
   <Premium />
-  <Products />
+  
   
     
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-8 justify-items-center">
@@ -31,9 +33,12 @@ export default function Home() {
       <Video src="/vid4.mp4" poster="/img5.2.png" width={330} height={610} />
     </div>
   
-  <Newsection />
+
   <Cousersal />
   <CategoryWiseDist />
+  <Testimonial />
+    <AllServices />
+
 <WhyChooseUs />
   </>
   );

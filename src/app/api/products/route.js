@@ -197,7 +197,19 @@ export async function GET(req) {
   }
 
   try {
+    // support simple search by name/description with ?search=term or ?q=term
+    const searchTermRaw = searchParams.get('search') || searchParams.get('q');
+    const where = searchTermRaw
+      ? {
+          OR: [
+            { name: { contains: searchTermRaw, mode: 'insensitive' } },
+            { description: { contains: searchTermRaw, mode: 'insensitive' } },
+          ],
+        }
+      : undefined;
+
     const products = await prisma.product.findMany({
+      where,
       orderBy: { createdAt: 'desc' },
       take: resolvedLimit,
       select: {

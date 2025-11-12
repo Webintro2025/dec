@@ -132,6 +132,25 @@ const Sidebar = ({ isOpen, onClose }) => {
               ))}
             </ul>
           )}
+
+          {/* Featured / static card styled like category items */}
+          <div className="mt-4">
+            <Link
+              href="/customize-Project"
+              onClick={() => onClose?.()}
+              className="group flex w-full items-start justify-between gap-3 rounded-2xl border border-gray-100 bg-white px-4 py-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-amber-200 hover:shadow-lg"
+            >
+              <div>
+                <p className="text-base font-semibold text-gray-900 group-hover:text-amber-600">
+                  Customized Projects
+                </p>
+                <p className="mt-2 text-sm text-gray-500">Bespoke lighting and custom fabrication services.</p>
+              </div>
+              <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/10 text-amber-600 transition group-hover:bg-amber-500 group-hover:text-white">
+                →
+              </span>
+            </Link>
+          </div>
         </div>
        
       </aside>

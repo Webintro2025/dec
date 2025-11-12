@@ -5,7 +5,8 @@ export default function WhyChooseUs() {
   return (
     <section className="bg-white py-12">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+  {/* stack on mobile, side-by-side on md+ with flexible text and narrower image */}
+  <div className="grid grid-cols-1 gap-8 items-center md:flex md:items-center md:gap-12">
 
           {/* Left: points (no numbers) */}
           <div className="space-y-6">
@@ -65,8 +66,8 @@ export default function WhyChooseUs() {
           </div>
 
           {/* Right: image */}
-          <div className="w-full rounded-xl overflow-hidden shadow-lg bg-gray-50 h-80 md:h-[520px]">
-            <img src="/tab.png" alt="Bamboo light" className="w-full h-full object-cover" />
+          <div className="w-full md:flex-shrink-0 md:w-[480px] rounded-xl overflow-hidden shadow-lg bg-gray-50 h-96 md:h-[720px]">
+            <img src="/IMG_8335.jpg" alt="Bamboo light" className="w-full h-full object-cover" />
           </div>
 
         </div>

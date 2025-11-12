@@ -94,14 +94,14 @@ const Popup = ({ isOpen, onClose, onSuccess }) => {
 
 	return (
 			<div className="fixed inset-0 bg-transparent flex items-center justify-center min-h-screen z-50 px-4">
-				<div className="w-full max-w-[900px] bg-white shadow-lg rounded-md overflow-hidden flex relative flex-col md:flex-row">
-					{/* Left Image (hidden on small screens) */}
-					<div className="hidden md:block md:w-1/2">
-						<img src="/mobile banner.png" alt="Lounge" className="w-full h-full object-cover" />
-					</div>
+					<div className="w-full max-w-[600px] bg-white shadow-lg rounded-md overflow-hidden flex relative flex-col md:flex-row md:h-[460px]">
+						{/* Left Image (hidden on small screens) */}
+						<div className="hidden md:block md:w-1/2 md:h-full">
+							<img src="/22.jpg" alt="Lounge" className="w-full h-full object-cover" />
+						</div>
 
-					{/* Right Form Section */}
-					<div className="w-full md:w-1/2 p-6 md:p-10 relative flex flex-col justify-center">
+						{/* Right Form Section */}
+						<div className="w-full md:w-1/2 p-3 md:p-6 relative flex flex-col justify-center md:h-full">
 					{/* Close Button */}
 							<button
 								type="button"
@@ -113,17 +113,7 @@ const Popup = ({ isOpen, onClose, onSuccess }) => {
 							</button>
 
 					{/* Logo */}
-							<h2 className="text-center text-lg sm:text-xl tracking-[0.5em] text-gray-700 mb-6">
-						<span className="text-orange-500">XX</span>XXXX
-					</h2>
-
-					{/* Heading */}
-							<h1 className="text-center text-lg sm:text-xl font-bold text-gray-800 mb-3">
-						EXCLUSIVE FIRST-TIME SHOPPER PERK!
-					</h1>
-							<p className="text-center text-gray-600 mb-6 text-sm sm:text-base">
-						Subscribe now and unlock your exclusive first-time shopper discount.
-					</p>
+							
 
 					{/* Form */}
 					{step === 1 && (

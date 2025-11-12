@@ -78,7 +78,7 @@ const Product = () => {
 												 <h2
 													 className="text-center text-2xl sm:text-3xl md:text-4xl mb-8 font-serif font-medium text-black drop-shadow-lg tracking-wide"
 												 >
-													 Trending Brands
+													 OUR COLLECTION
 												 </h2>
 				<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
 					{loading && (!products || products.length === 0) &&

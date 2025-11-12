@@ -62,33 +62,34 @@ export default function AllServices({ services = DEFAULT_SERVICES }) {
 		<section className="py-12 bg-gray-50">
 			<div className="max-w-6xl mx-auto px-4">
 				<header className="text-center mb-10">
-					<h2 className="text-3xl font-serif text-[#8b5e34]">OUR SERVICES</h2>
+					<h2 className="text-3xl font-serif text-[#8b5e34]">BEST SELLER</h2>
 					<p className="mt-2 text-sm text-gray-600">A Basket for every special occasion</p>
 				</header>
 
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-start">
 					{services.map((s) => (
-						<article key={s.id} className="bg-transparent rounded-xl overflow-hidden relative">
+						<article key={s.id} className="bg-transparent rounded-xl overflow-hidden">
+							{/* image wrapper */}
 							<div className="relative">
 								<img
 									src={s.image}
 									alt={s.title}
-									className="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover"
+									className="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover rounded-md"
 								/>
 
-								{/* Clickable overlay: clicking the card scrolls/jumps to #products */}
+								{/* Clickable overlay only over image area */}
 								<button
 									onClick={handleServiceClick}
 									aria-label={`View products for ${s.title}`}
 									className="absolute inset-0 w-full h-full bg-transparent"
 								/>
+							</div>
 
-								{/* Title overlay only, transparent background */}
-								<div className="absolute inset-0 flex items-end justify-center pointer-events-none">
-									<div className="w-full bg-gradient-to-t from-black/60 to-transparent py-3 text-center">
-										<h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white tracking-wider uppercase">{s.title}</h3>
-									</div>
-								</div>
+							{/* Title below image */}
+							<div className="mt-3 text-center">
+								<h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-800">{s.title}</h3>
+
+								
 							</div>
 						</article>
 					))}

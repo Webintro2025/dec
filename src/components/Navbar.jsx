@@ -1,15 +1,17 @@
 
 "use client";
 import React, { useState, useEffect } from "react";
-import { User, ShoppingBag } from "lucide-react";
+import { User, ShoppingBag, Search } from "lucide-react";
 import Popup from "./PopUpLogin";
 import Sidebar from "./Sidebar";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/components/cart/CartProvider";
+import useDebounce from "@/hooks/useDebounce";
 
 const Navbar = () => {
 	const pathname = usePathname();
+	const router = useRouter();
 	const isHome = pathname === "/";
 	const [isScrolled, setIsScrolled] = useState(() => (!isHome ? true : false));
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -97,6 +99,53 @@ const Navbar = () => {
 		setIsPopupOpen(false);
 	};
 
+	// search state
+	const [searchOpen, setSearchOpen] = useState(false);
+	const [searchQuery, setSearchQuery] = useState("");
+	const debouncedQuery = useDebounce(searchQuery, 300);
+	const [searchResults, setSearchResults] = useState([]);
+	const [searchLoading, setSearchLoading] = useState(false);
+
+	useEffect(() => {
+		// Only search when debouncedQuery is at least 2 chars
+		if (!debouncedQuery || debouncedQuery.trim().length < 2) {
+			setSearchResults([]);
+			setSearchLoading(false);
+			return;
+		}
+
+		let mounted = true;
+		setSearchLoading(true);
+
+		(async () => {
+			try {
+				const res = await fetch(`/api/products?search=${encodeURIComponent(debouncedQuery)}&limit=10`);
+				if (!mounted) return;
+				if (res.ok) {
+					const json = await res.json();
+					setSearchResults(json.products || []);
+				} else {
+					setSearchResults([]);
+				}
+			} catch (e) {
+				if (!mounted) return;
+				setSearchResults([]);
+			} finally {
+				if (mounted) setSearchLoading(false);
+			}
+		})();
+
+		return () => {
+			mounted = false;
+		};
+	}, [debouncedQuery]);
+
+	const handleProductClick = (id) => {
+		setSearchOpen(false);
+		setSearchQuery("");
+		router.push(`/products/${id}`);
+	};
+
 	return (
 		<>
 		<header className={`fixed top-0 left-0 w-full z-50 flex items-center px-4 sm:px-6 lg:px-8 py-3 sm:py-4 transition-all duration-300 ${
@@ -127,7 +176,47 @@ const Navbar = () => {
 
 			{/* Right: Icons */}
 			<div className={`flex flex-1 items-center justify-end space-x-3 md:space-x-6 transition-colors duration-300 ${textColorClass}`}>
-				{/* Search removed per request */}
+				{/* Search */}
+				<div className="relative">
+					<button
+						type="button"
+						onClick={() => setSearchOpen((s) => !s)}
+						className="p-2 rounded-md"
+						aria-label="Search products"
+					>
+						<Search className={`w-5 h-5 transition-colors duration-300 ${iconColorClass}`} />
+					</button>
+
+					{searchOpen && (
+						/* Responsive dropdown: full width with side padding on small screens, fixed width on sm+ */
+						<div className="absolute mt-2 z-50 right-4 left-4 sm:right-0 sm:left-auto sm:w-80 w-[min(92vw,20rem)] bg-white shadow-lg rounded-md text-black">
+							<div className="p-2">
+								<input
+									autoFocus
+									value={searchQuery}
+									onChange={(e) => setSearchQuery(e.target.value)}
+									placeholder="Search products..."
+									className="w-full border rounded px-3 py-2 text-sm text-black"
+								/>
+							</div>
+							<div className="max-h-[50vh] sm:max-h-64 overflow-auto">
+								{searchLoading && <div className="p-3 text-sm text-gray-500">Searching...</div>}
+								{!searchLoading && searchResults.length === 0 && searchQuery.trim().length >= 2 && (
+									<div className="p-3 text-sm text-gray-500">No results</div>
+								)}
+								{searchResults.map((p) => (
+									<button key={p.id} onClick={() => handleProductClick(p.id)} className="w-full text-left flex items-center gap-3 p-2 hover:bg-gray-50">
+										<img src={p.thumbnail || '/img1.png'} alt={p.name} className="w-12 h-12 object-cover rounded" />
+										<div>
+											<div className="text-sm font-medium">{p.name}</div>
+											<div className="text-xs text-gray-500">{p.category?.name || ''}</div>
+										</div>
+									</button>
+								))}
+							</div>
+						</div>
+					)}
+				</div>
 				{/* Log in / Log out */}
 				{isLoggedIn ? (
 					<button
