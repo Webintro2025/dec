@@ -16,14 +16,14 @@ export default function Testimonial() {
       name: "Anita Sharma",
       title: "Stunning finish",
       text: "The fixture exceeded our expectations — excellent craftsmanship and fast delivery. Highly recommended!",
-      img: "/user.png",
+      img: "/6.jpg",
       rating: 5,
     },
     {
       name: "Ravi Kumar",
       title: "Perfect fit",
       text: "Custom measurements were handled professionally and the end result is beautiful. Great communication throughout.",
-      img: "/img1.png",
+      img: "/1.JPG",
       rating: 5,
     },
   ];

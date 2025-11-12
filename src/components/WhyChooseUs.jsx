@@ -67,7 +67,7 @@ export default function WhyChooseUs() {
 
           {/* Right: image */}
           <div className="w-full md:flex-shrink-0 md:w-[480px] rounded-xl overflow-hidden shadow-lg bg-gray-50 h-96 md:h-[720px]">
-            <img src="/IMG_8335.jpg" alt="Bamboo light" className="w-full h-full object-cover" />
+            <img src="/14.PNG" alt="Bamboo light" className="w-full h-full object-cover" />
           </div>
 
         </div>
