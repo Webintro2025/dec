@@ -15,7 +15,7 @@ const Footer = () => {
 				</svg>
 			</div> */}
 
-			<div className="relative  px-6 py-20 sm:px-8 lg:py-24" style={{ backgroundImage: "url('/footer1.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+			<div className="relative px-6 pt-20 pb-32 sm:px-8 sm:pb-36 lg:pt-24 lg:pb-48" style={{ backgroundImage: "url('/footer3.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
 				{/* decorative overlay so text stays readable */}
 				<div className="absolute inset-0  z-0 pointer-events-none" aria-hidden="true" />
 				{/* Header Section (kept above the bg image) */}
@@ -53,7 +53,7 @@ const Footer = () => {
 									<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
 								</svg>
 								<div>
-									<p className="text-black font-medium">+91 XXXXXXXXXXXXX</p>
+									<p className="text-black font-medium">+91 9717779552</p>
 									<p className="text-black text-xs">Call us anytime</p>
 								</div>
 							</div>
@@ -63,7 +63,7 @@ const Footer = () => {
 									<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
 								</svg>
 								<div>
-									<p className="text-black font-medium">hello@interiordesign.com</p>
+									<p className="text-black font-medium">nandini@texsource.co.in</p>
 									<p className="text-black text-xs">Send us an email</p>
 								</div>
 							</div>
@@ -182,6 +182,13 @@ export const SubFooter = () => (
 					</p>
 				</div>
                 
+				<div className="flex items-center space-x-4">
+					<img src="/visa.png" alt="Visa" className="h-5 sm:h-6 w-auto object-contain" />
+					<img src="/paytm.png" alt="Paytm" className="h-5 sm:h-6 w-auto object-contain" />
+					<img src="/phonepay.png" alt="PhonePe" className="h-5 sm:h-6 w-auto object-contain" />
+					<img src="/upi.png" alt="UPI" className="h-5 sm:h-6 w-auto object-contain" />
+					<img src="/googlepay.png" alt="Google Pay" className="h-5 sm:h-6 w-auto object-contain" />
+				</div>
                 
 			</div>
 		</div>
