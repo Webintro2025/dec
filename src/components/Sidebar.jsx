@@ -41,10 +41,8 @@ const Sidebar = ({ isOpen, onClose }) => {
     };
   }, [isOpen]);
 
-  const handleBackdropClick = (event) => {
-    if (event.target === event.currentTarget) {
-      onClose?.();
-    }
+  const handleBackdropClick = () => {
+    onClose?.();
   };
 
   return (
@@ -52,17 +50,19 @@ const Sidebar = ({ isOpen, onClose }) => {
       className={`fixed inset-0 z-[60] transition-opacity duration-300 ${
         isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
-      onClick={handleBackdropClick}
     >
+      {/* overlay — clicking/touching this should close the sidebar */}
       <div
-        className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${
-          isOpen ? "opacity-100" : "opacity-0"
-        }`}
+        className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
+        onClick={handleBackdropClick}
+        onTouchStart={handleBackdropClick}
       />
       <aside
         className={`absolute left-0 top-0 h-full w-80 max-w-sm bg-white/95 backdrop-blur-sm shadow-2xl border-r border-white/40 transform transition-transform duration-300 ease-out flex flex-col ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
       >
         <div className="px-6 pt-8 pb-6">
           <div className="flex items-center justify-between">

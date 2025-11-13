@@ -101,9 +101,19 @@ const Popup = ({ isOpen, onClose, onSuccess }) => {
 		}
 	};
 
-	return (
-			<div className="fixed inset-0 bg-transparent flex items-center justify-center min-h-screen z-50 px-4">
-					<div className="w-full max-w-[600px] bg-white shadow-lg rounded-md overflow-hidden flex relative flex-col md:flex-row md:h-[460px]">
+	  return (
+	    		<div className="fixed inset-0 bg-transparent flex items-center justify-center min-h-screen z-50 px-4">
+				{/* clickable overlay: clicking/touching outside the modal closes it */}
+				<div
+					className="absolute inset-0"
+					onClick={closePopup}
+					onTouchStart={closePopup}
+				/>
+				<div
+					className="w-full max-w-[600px] bg-white shadow-lg rounded-md overflow-hidden flex relative flex-col md:flex-row md:h-[460px]"
+					onClick={(e) => e.stopPropagation()}
+					onTouchStart={(e) => e.stopPropagation()}
+				>
 						{/* Left Image (hidden on small screens) */}
 						<div className="hidden md:block md:w-1/2 md:h-full">
 							<img src="/15.JPG" alt="Lounge" className="w-full h-full object-cover" />

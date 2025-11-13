@@ -1,2 +1,66 @@
 @import "tailwindcss";
 
+/* Brand color override: replace Tailwind "amber" utilities visually with the project's brand hex.
+	 This provides a quick, global swap without editing every component class.
+	 It intentionally uses attribute selectors to target Tailwind-generated class names
+	 such as bg-amber-600, text-amber-600, border-amber-200, hover:bg-amber-700, etc.
+	 NOTE: These rules use !important to ensure they override the compiled utility rules.
+*/
+
+/* Backgrounds that reference amber */
+[class*="bg-amber"] {
+	background-color: #AA7C4D !important;
+}
+
+/* Text color utilities */
+[class*="text-amber"] {
+	color: #AA7C4D !important;
+}
+
+/* Border color utilities */
+[class*="border-amber"] {
+	border-color: #AA7C4D !important;
+}
+
+/* Gradient 'from' / 'to' helpers */
+[class*="from-amber"] {
+	--tw-gradient-from: #AA7C4D !important;
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(170,124,77,0)) !important;
+}
+[class*="to-amber"] {
+	--tw-gradient-to: #AA7C4D !important;
+}
+
+/* Hover variants: when elements include hover:bg-amber-* classes, apply on :hover */
+[class*="hover:bg-amber"]:hover {
+	background-color: #AA7C4D !important;
+}
+
+/* Disabled variant (e.g. disabled:bg-amber-300) */
+[class*="disabled:bg-amber"]:disabled {
+	background-color: #AA7C4D !important;
+}
+
+/* Focus / ring color variables used by Tailwind's ring utilities */
+[class*="ring-amber"],
+[class*="focus:ring-amber"],
+[class*="focus-visible:ring-amber"] {
+	--tw-ring-color: #AA7C4D !important;
+}
+
+/* Buttons / elements that use hover:border-amber or hover:text-amber */
+[class*="hover:border-amber"]:hover {
+	border-color: #AA7C4D !important;
+}
+[class*="hover:text-amber"]:hover {
+	color: #AA7C4D !important;
+}
+
+/* Utility for BG opacity variants (e.g. bg-amber-200/20) also matched by the bg-amber selector above */
+
+/* Small safeguard for inline SVG strokes/fills that use text-amber-* classes */
+svg[class*="text-amber"] * {
+	stroke: #AA7C4D !important;
+	fill: #AA7C4D !important;
+}
+
