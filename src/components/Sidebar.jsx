@@ -124,9 +124,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                         </p>
                       )}
                     </div>
-                    <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/10 text-amber-600 transition group-hover:bg-amber-500 group-hover:text-white">
-                      →
-                    </span>
+                   
                   </Link>
                 </li>
               ))}
@@ -147,9 +145,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                 </p>
                
               </div>
-              <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/10 text-amber-600 transition group-hover:bg-amber-500 group-hover:text-white">
-                →
-              </span>
+        
             </Link>
           </div>
 
@@ -165,9 +161,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                 </p>
                
               </div>
-              <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/10 text-amber-600 transition group-hover:bg-amber-500 group-hover:text-white">
-                →
-              </span>
+          
             </Link>
           </div>
         </div>

@@ -21,6 +21,8 @@ const images = [
 	"18.JPG",
 	"19.JPG",
 	"20.JPG",
+	"21.jpeg",
+	"22.JPG",
 	
 	
 ];

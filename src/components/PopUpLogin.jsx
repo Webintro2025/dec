@@ -116,7 +116,7 @@ const Popup = ({ isOpen, onClose, onSuccess }) => {
 				>
 						{/* Left Image (hidden on small screens) */}
 						<div className="hidden md:block md:w-1/2 md:h-full">
-							<img src="/15.JPG" alt="Lounge" className="w-full h-full object-cover" />
+							<img src="/301.jpg" alt="Lounge" className="w-full h-full object-cover" />
 						</div>
 
 						{/* Right Form Section */}
