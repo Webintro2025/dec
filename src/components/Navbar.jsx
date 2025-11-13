@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { User, ShoppingBag, Search } from "lucide-react";
 import Popup from "./PopUpLogin";
 import Sidebar from "./Sidebar";
@@ -105,6 +105,7 @@ const Navbar = () => {
 	const debouncedQuery = useDebounce(searchQuery, 300);
 	const [searchResults, setSearchResults] = useState([]);
 	const [searchLoading, setSearchLoading] = useState(false);
+	const searchRef = useRef(null);
 
 	useEffect(() => {
 		// Only search when debouncedQuery is at least 2 chars
@@ -146,6 +147,24 @@ const Navbar = () => {
 		router.push(`/products/${id}`);
 	};
 
+	useEffect(() => {
+		if (!searchOpen) return undefined;
+
+		const handleClickOutside = (event) => {
+			if (searchRef.current && !searchRef.current.contains(event.target)) {
+				setSearchOpen(false);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		document.addEventListener("touchstart", handleClickOutside);
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+			document.removeEventListener("touchstart", handleClickOutside);
+		};
+	}, [searchOpen]);
+
 	return (
 		<>
 		<header className={`fixed top-0 left-0 w-full z-50 flex items-center px-4 sm:px-6 lg:px-8 py-3 sm:py-4 transition-all duration-300 ${
@@ -177,7 +196,7 @@ const Navbar = () => {
 			{/* Right: Icons */}
 			<div className={`flex flex-1 items-center justify-end space-x-3 md:space-x-6 transition-colors duration-300 ${textColorClass}`}>
 				{/* Search */}
-				<div className="relative">
+				<div className="relative" ref={searchRef}>
 					<button
 						type="button"
 						onClick={() => setSearchOpen((s) => !s)}
