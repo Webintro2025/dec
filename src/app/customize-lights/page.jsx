@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 
-const images = ["09.jpg", "08.jpg", "07.jpg"];
+const images = ["09.jpg", "08.jpg"];
 
 export default function Page() {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
