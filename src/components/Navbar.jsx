@@ -59,10 +59,19 @@ const Navbar = () => {
 	}, []);
 
 	useEffect(() => {
+		if (typeof window === "undefined") return undefined;
 		if (isLoggedIn) {
 			setIsPopupOpen(false);
 			return undefined;
 		}
+
+		// Only auto-show popup if it has never been shown before
+		const alreadyShown = localStorage.getItem("popup_shown");
+		if (alreadyShown) {
+			setIsPopupOpen(false);
+			return undefined;
+		}
+
 		const timer = setTimeout(() => {
 			setIsPopupOpen(true);
 		}, 2000);
@@ -86,6 +95,9 @@ const Navbar = () => {
 	};
 
 	const handleLoginSuccess = () => {
+		if (typeof window !== "undefined") {
+			localStorage.setItem("popup_shown", "true");
+		}
 		setIsLoggedIn(true);
 		setIsPopupOpen(false);
 	};
@@ -280,7 +292,12 @@ const Navbar = () => {
 		</header>
 		<Popup
 			isOpen={isPopupOpen}
-			onClose={() => setIsPopupOpen(false)}
+			onClose={() => {
+				if (typeof window !== "undefined") {
+					localStorage.setItem("popup_shown", "true");
+				}
+				setIsPopupOpen(false);
+			}}
 			onSuccess={handleLoginSuccess}
 		/>
 		<Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />

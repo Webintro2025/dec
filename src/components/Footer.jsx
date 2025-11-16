@@ -72,8 +72,10 @@ const Footer = () => {
 									<path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
 								</svg>
 								<div>
+									<a href="/contact">
 									<p className="text-black font-medium">Design Studio</p>
 									<p className="text-black text-xs">Visit our showroom</p>
+									</a>
 								</div>
 							</div>
 						</div>
@@ -83,15 +85,15 @@ const Footer = () => {
 					<div>
 						<h4 className="text-lg font-bold text-black mb-6">Our Services</h4>
 						<ul className="space-y-3">
-							<li><a href="#" className="text-black transition-colors duration-300 flex items-center group">
+							<li><a href="/categories/1" className="text-black transition-colors duration-300 flex items-center group">
 								<span className="w-1 h-1 bg-amber-400 rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
 								Readily Available lights
 							</a></li>
-							<li><a href="#" className="text-black transition-colors duration-300 flex items-center group">
+							<li><a href="/customize-lights" className="text-black transition-colors duration-300 flex items-center group">
 								<span className="w-1 h-1 bg-amber-400 rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
 								Customized Lights
 							</a></li>
-							<li><a href="#" className="text-black transition-colors duration-300 flex items-center group">
+							<li><a href="customize-Project" className="text-black transition-colors duration-300 flex items-center group">
 								<span className="w-1 h-1 bg-amber-400 rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
 								Customized Projects
 							</a></li>
@@ -103,27 +105,27 @@ const Footer = () => {
 					<div>
 						<h4 className="text-lg font-bold text-black mb-6">Quick Links</h4>
 						<ul className="space-y-3">
-							<li><a href="#" className="text-black transition-colors duration-300 flex items-center group">
+							<li><a href="/about-us" className="text-black transition-colors duration-300 flex items-center group">
 								<span className="w-1 h-1 bg-amber-400 rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
 								About Us
 							</a></li>
-							<li><a href="#" className="text-black transition-colors duration-300 flex items-center group">
+							<li><a href="/contact" className="text-black transition-colors duration-300 flex items-center group">
 								<span className="w-1 h-1 bg-amber-400 rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
 								Contact
 							</a></li>
-							<li><a href="#" className="text-black transition-colors duration-300 flex items-center group">
+							<li><a href="/privacy-policy" className="text-black transition-colors duration-300 flex items-center group">
 								<span className="w-1 h-1 bg-amber-400 rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
 								Privacy Policy
 							</a></li>
-							<li><a href="#" className="text-black transition-colors duration-300 flex items-center group">
+							<li><a href="/refund" className="text-black transition-colors duration-300 flex items-center group">
 								<span className="w-1 h-1 bg-amber-400 rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
 								Returns and Refunds 
 							</a></li>
-							<li><a href="#" className="text-black transition-colors duration-300 flex items-center group">
+							<li><a href="/tracking-delivery" className="text-black transition-colors duration-300 flex items-center group">
 								<span className="w-1 h-1 bg-amber-400 rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
 								Tracking and Delivery 
 							</a></li>
-							<li><a href="#" className="text-black transition-colors duration-300 flex items-center group">
+							<li><a href="faq" className="text-black transition-colors duration-300 flex items-center group">
 								<span className="w-1 h-1 bg-amber-400 rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
 								FAQ’s
 							</a></li>
