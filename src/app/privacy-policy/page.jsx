@@ -24,14 +24,14 @@ export default function PrivacyPolicyPage() {
 
 				<h2 className="text-lg font-semibold mt-6 text-[#AA7C4D]">Personally Identifiable Information</h2>
 				<p className="mt-2">
-					When anyone accesses the Habereindia website, we collect the personal
+					When anyone accesses the Ekotique. Deco website, we collect the personal
 					information that is provided by them and store it from time to time.
 					The goal behind capturing and saving this information is to provide an
 					efficient and smooth experience, and to offer features and services
 					that best meet your needs.
 				</p>
 				<p>
-					In general, anyone can browse the Habereindia Website without
+					In general, anyone can browse the Ekotique. Deco Website without
 					providing personal details. However, once information is provided, the
 					user is no longer anonymous to us. Where possible, we indicate fields
 					that are not mandatory and users always have the option to not provide
@@ -85,7 +85,7 @@ export default function PrivacyPolicyPage() {
 				<p>
 					If you send us personal communication such as emails or letters, or if
 					other users or third parties send us communication about your
-					activities or postings on the Website, HabereIndia may collect and
+					activities or postings on the Website, Ekotique. Deco may collect and
 					store such information.
 				</p>
 
@@ -163,7 +163,7 @@ export default function PrivacyPolicyPage() {
 
 				<h2 className="text-lg font-semibold mt-6 text-[#AA7C4D]">Security Precautions</h2>
 				<p className="mt-2">
-					We at HabereIndia take stringent security measures to protect against
+					We at Ekotique. Deco take stringent security measures to protect against
 					the loss, misuse, and alteration of the information under our control.
 					Whenever you access or change your account information, we offer a
 					secure server for you to use. Once your information is in our

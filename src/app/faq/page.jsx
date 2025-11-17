@@ -8,9 +8,9 @@ const faqs = [
 		items: [
 			{
 				q: "How to purchase an item from the website?",
-				a: `To purchase an item on HabereIndia:
+				a: `To purchase an item on Ekotique. Deco:
 
-1. Find an item you want to purchase on www.habereindia.com
+1. Find an item you want to purchase on www.Ekotique. Deco.com
 2. Choose the options you want for that item like colour, size, quantity etc.
 3. Click 'Add to cart'.
 4. Optionally, change the quantity from 0 to 1 or more as required. Shipping, taxes and discounts are calculated at checkout.
@@ -23,7 +23,7 @@ If you have any questions about an item or order, you can message us or email us
 			},
 			{
 				q: "Are your products available on any other website?",
-				a: "We are a trusted e-commerce brand in partnership with India's leading online selling platforms like Amazon, Myntra, Ajio, Flipkart etc. However, beware of fake or fraud websites that offer our products at very low prices and never fulfil orders. HabereIndia has not authorised any such portal to sell its products on its behalf.",
+				a: "We are a trusted e-commerce brand in partnership with India's leading online selling platforms like Amazon, Myntra, Ajio, Flipkart etc. However, beware of fake or fraud websites that offer our products at very low prices and never fulfil orders. Ekotique. Deco has not authorised any such portal to sell its products on its behalf.",
 			},
 		],
 	},
@@ -36,7 +36,7 @@ If you have any questions about an item or order, you can message us or email us
 			},
 			{
 				q: "I received products with variations in them, is that ok?",
-				a: "Yes. At HabereIndia, we believe in handmade products. Every product is skillfully made by talented artisans and slight variations are expected. These small differences add to the handmade charm of each piece.",
+				a: "Yes. At Ekotique. Deco, we believe in handmade products. Every product is skillfully made by talented artisans and slight variations are expected. These small differences add to the handmade charm of each piece.",
 			},
 			{
 				q: "My carpet is curved/bent after placing on the floor, how will it fit?",
