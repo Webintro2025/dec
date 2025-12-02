@@ -56,15 +56,17 @@ const ProductDetailPage = async ({ params }) => {
     notFound();
   }
 
-  // Build image URLs using the image proxy endpoint so the browser fetches
-  // images separately (better for caching and avoids huge JSON payloads)
+  // Build image URLs using the image path from the database and the site base URL
   const headerList = await headers();
   const protocol = headerList.get('x-forwarded-proto') || 'http';
   const host = headerList.get('x-forwarded-host') || headerList.get('host') || 'localhost:3000';
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`;
-
-  const images = (Array.isArray(product?.images) && product.images.length > 0)
-    ? product.images.map((_, i) => `${baseUrl}/api/products/image?productId=${productId}&index=${i}`)
+  const images = Array.isArray(product?.images) && product.images.length > 0
+    ? product.images.map(imgPath =>
+        imgPath.startsWith('http')
+          ? imgPath
+          : `${baseUrl}${imgPath}`
+      )
     : [FALLBACK_IMAGE];
   const categoryName = product?.category?.name || "Lighting";
   const description = product?.description || "";
