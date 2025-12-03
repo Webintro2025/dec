@@ -49,7 +49,7 @@ export default function Page() {
           <h1 className="text-3xl md:text-4xl font-bold">Customize Lights</h1>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {images.map((img, idx) => (
             <div key={img.id || img.url} className="relative rounded-xl overflow-hidden bg-white shadow-2xl group">
               <button
