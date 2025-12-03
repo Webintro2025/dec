@@ -2,15 +2,28 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 
-const images = ["09.jpg", "08.jpg"];
 
 export default function Page() {
+  const [images, setImages] = useState([]);
   const [lightboxIndex, setLightboxIndex] = useState(-1);
+
+  useEffect(() => {
+    async function fetchImages() {
+      try {
+        const res = await fetch('/api/gallery?page=1');
+        const data = await res.json();
+        setImages(data.images || []);
+      } catch (err) {
+        setImages([]);
+      }
+    }
+    fetchImages();
+  }, []);
 
   const openLightbox = (idx) => setLightboxIndex(idx);
   const closeLightbox = () => setLightboxIndex(-1);
-  const showPrev = useCallback(() => setLightboxIndex((i) => (i > 0 ? i - 1 : images.length - 1)), []);
-  const showNext = useCallback(() => setLightboxIndex((i) => (i < images.length - 1 ? i + 1 : 0)), []);
+  const showPrev = useCallback(() => setLightboxIndex((i) => (i > 0 ? i - 1 : images.length - 1)), [images.length]);
+  const showNext = useCallback(() => setLightboxIndex((i) => (i < images.length - 1 ? i + 1 : 0)), [images.length]);
 
   useEffect(() => {
     if (lightboxIndex === -1) return;
@@ -23,6 +36,7 @@ export default function Page() {
     return () => window.removeEventListener("keydown", onKey);
   }, [lightboxIndex, showNext, showPrev]);
 
+
   return (
     <main className="min-h-screen bg-gray-50">
       <section className="max-w-7xl mx-auto px-4 pt-28 pb-8">
@@ -31,21 +45,20 @@ export default function Page() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {images.map((name, idx) => (
-            <div key={name} className="relative rounded-xl overflow-hidden bg-white shadow-2xl group">
+          {images.map((img, idx) => (
+            <div key={img.id || img.url} className="relative rounded-xl overflow-hidden bg-white shadow-2xl group">
               <button
                 onClick={() => openLightbox(idx)}
                 className="w-full h-full block text-left"
                 aria-label={`Open image ${idx + 1}`}>
                 <div className="w-full h-[300px] sm:h-[360px] md:h-[460px] lg:h-[520px] overflow-hidden">
                   <img
-                    src={`/${name}`}
+                    src={img.url}
                     alt={`Light ${idx + 1}`}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:brightness-90"
                     loading="lazy"
                   />
                 </div>
-
                 <div className="absolute inset-0 flex items-end p-4 pointer-events-none">
                   <div className="w-full flex items-center justify-between text-white opacity-0 group-hover:opacity-100 transition">
                     <div>
@@ -82,7 +95,7 @@ export default function Page() {
             </button>
 
             <img
-              src={`/${images[lightboxIndex]}`}
+              src={images[lightboxIndex]?.url}
               alt={`Light ${lightboxIndex + 1}`}
               className="max-w-[90vw] max-h-[90vh] object-contain rounded"
             />

@@ -150,3 +150,10 @@ model CustomerInfo {
 
   @@index([userId])
 }
+
+model GalleryImage{
+  id        String   @id @default(uuid())
+  url       String
+  
+  createdAt DateTime @default(now())
+}
