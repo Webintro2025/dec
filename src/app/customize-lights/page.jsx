@@ -58,7 +58,7 @@ export default function Page() {
                 aria-label={`Open image ${idx + 1}`}>
                 <div className="w-full h-[260px] sm:h-[320px] md:h-[400px] lg:h-[600px] flex items-center justify-center bg-gray-100">
                   <img
-                    src={img.url}
+                    src={`/api/optimized-image?src=${encodeURIComponent(img.url)}&w=800&q=80`}
                     alt={`Light ${idx + 1}`}
                     className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105 group-hover:brightness-90"
                     loading="lazy"
@@ -119,7 +119,7 @@ export default function Page() {
             </button>
 
             <img
-              src={images[lightboxIndex]?.url}
+              src={images[lightboxIndex]?.url ? `/api/optimized-image?src=${encodeURIComponent(images[lightboxIndex].url)}&w=1200&q=90` : ''}
               alt={`Light ${lightboxIndex + 1}`}
               className="max-w-[90vw] max-h-[90vh] object-contain rounded"
             />
