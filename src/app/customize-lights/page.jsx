@@ -49,18 +49,18 @@ export default function Page() {
           <h1 className="text-3xl md:text-4xl font-bold">Customize Lights</h1>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {images.map((img, idx) => (
             <div key={img.id || img.url} className="relative rounded-xl overflow-hidden bg-white shadow-2xl group">
               <button
                 onClick={() => openLightbox(idx)}
                 className="w-full h-full block text-left"
                 aria-label={`Open image ${idx + 1}`}>
-                <div className="w-full h-[300px] sm:h-[360px] md:h-[460px] lg:h-[520px] overflow-hidden">
+                <div className="w-full h-[260px] sm:h-[320px] md:h-[400px] lg:h-[600px] flex items-center justify-center bg-gray-100">
                   <img
                     src={img.url}
                     alt={`Light ${idx + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:brightness-90"
+                    className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105 group-hover:brightness-90"
                     loading="lazy"
                   />
                 </div>
