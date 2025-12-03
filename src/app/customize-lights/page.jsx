@@ -11,18 +11,22 @@ export default function Page() {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
+    const controller = new AbortController();
     async function fetchImages() {
       try {
-        const res = await fetch(`/api/gallery?page=${page}`);
+        const res = await fetch(`/api/gallery?page=${page}`, { signal: controller.signal });
         const data = await res.json();
         setImages(data.images || []);
         setTotalPages(data.totalPages || 1);
       } catch (err) {
-        setImages([]);
-        setTotalPages(1);
+        if (err.name !== 'AbortError') {
+          setImages([]);
+          setTotalPages(1);
+        }
       }
     }
     fetchImages();
+    return () => controller.abort();
   }, [page]);
 
   const openLightbox = (idx) => setLightboxIndex(idx);

@@ -22,7 +22,7 @@ const images = [
 	"19.JPG",
 	"20.JPG",
 	"21.jpeg",
-	"22.JPG",
+	
 	
 	
 ];
