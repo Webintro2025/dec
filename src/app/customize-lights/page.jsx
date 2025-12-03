@@ -123,9 +123,10 @@ export default function Page() {
             </button>
 
             <img
-              src={images[lightboxIndex]?.url ? `/api/optimized-image?src=${encodeURIComponent(images[lightboxIndex].url)}&w=1200&q=90` : ''}
+              src={images[lightboxIndex]?.url ? `/api/optimized-image?src=${encodeURIComponent(images[lightboxIndex].url)}&w=800&q=80` : ''}
               alt={`Light ${lightboxIndex + 1}`}
               className="max-w-[90vw] max-h-[90vh] object-contain rounded"
+              loading="eager"
             />
 
             <button
