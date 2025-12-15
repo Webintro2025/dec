@@ -3,9 +3,9 @@ import prisma from '../../../../src/app/utils/prisma';
 import Link from 'next/link';
 
 export default async function CategoryPage({ params, searchParams }) {
-  const { id } = params || {};
+  const { id } = await params || {};
   // keyset pagination: use a cursor (base64 JSON { createdAt, id }) instead of page numbers
-  const cursorParam = searchParams?.cursor || null;
+  const cursorParam = await searchParams?.cursor || null;
   const prevParam = searchParams?.prev || null;
   const PAGE_SIZE = 48; // modest page size for faster responses
 
