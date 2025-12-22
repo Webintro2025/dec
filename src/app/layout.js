@@ -18,6 +18,20 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Ekotique - Your One-Stop Shop for Elegant Home Decor",
+  description:
+    "Discover Ekotique, the premier destination for exquisite home decor and lighting solutions. Explore our curated collection of stylish furniture, decorative accents, and innovative lighting designs to transform your living spaces with elegance and charm.",
+  keywords: [
+    "home decor",
+    "lighting solutions",
+    "stylish furniture",
+    "decorative accents",
+    "innovative lighting designs",
+    "elegant living spaces",
+    "Ekotique",
+  ],
+  verification: {
+    google: "hJbZWdkgRzuy5PTeCqzULXIcHnd3MdGfXi1KTnc4EvM", // ← Yeh line important hai (preserved)
+  },
   
 };
 
