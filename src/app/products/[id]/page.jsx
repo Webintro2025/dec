@@ -19,9 +19,19 @@ const formatCurrency = (value) => {
 };
 
 async function fetchProduct(id) {
-  // Make a server-side fetch using configured NEXT_PUBLIC_SITE_URL or localhost
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  const response = await fetch(`${baseUrl}/api/products?id=${id}`, { cache: 'no-store' });
+  // Make a server-side fetch using the current host in dev,
+  // and the configured public site URL (or host) in production.
+  console.log(id);
+
+  const headerList = await headers();
+  const protocol = headerList.get('x-forwarded-proto') || 'http';
+  const host = headerList.get('x-forwarded-host') || headerList.get('host') || 'localhost:3000';
+  const baseUrl =
+    process.env.NODE_ENV === 'development'
+      ? `${protocol}://${host}`
+      : process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`;
+
+  const response = await fetch(`${baseUrl}/api/products?id=${encodeURIComponent(id)}`, { cache: 'no-store' });
 
   if (response.status === 404) {
     return null;
@@ -39,6 +49,7 @@ const ProductDetailPage = async ({ params }) => {
   // await params for compatibility with Next.js dynamic APIs
   const resolvedParams = await params;
   const productId = resolvedParams?.id;
+  console.log(productId)
 
   if (!productId) {
     notFound();
@@ -60,7 +71,10 @@ const ProductDetailPage = async ({ params }) => {
   const headerList = await headers();
   const protocol = headerList.get('x-forwarded-proto') || 'http';
   const host = headerList.get('x-forwarded-host') || headerList.get('host') || 'localhost:3000';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`;
+  const baseUrl =
+    process.env.NODE_ENV === 'development'
+      ? `${protocol}://${host}`
+      : process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`;
   const images = Array.isArray(product?.images) && product.images.length > 0
     ? product.images.map(imgPath =>
         imgPath.startsWith('http')

@@ -7,51 +7,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Prisma schema generated to mirror existing Mongoose models in src/app/models
-
 model Category {
-  id        String    @id @default(uuid())
-  name      String    @unique
+  id          String    @id @default(uuid())
+  name        String    @unique
   description String?
-  images    String[]  @default([])
-  products  Product[]
-  createdAt DateTime  @default(now())
+  images      String[]  @default([])
+  createdAt   DateTime  @default(now())
+  products    Product[]
 
   @@index([name])
 }
 
 model Product {
-  id           String    @id @default(uuid())
+  id           String      @id @default(uuid())
   name         String
   description  String?
-  images       String[]  @default([])
+  images       String[]    @default([])
   categoryId   String
-  category     Category  @relation(fields: [categoryId], references: [id])
   price        Float
-  quantity     Int       @default(0)
+  quantity     Int         @default(0)
   dimension    String?
   materialCare String?
-  createdAt    DateTime  @default(now())
-
+  createdAt    DateTime    @default(now())
   carts        CartItem[]
   orderItems   OrderItem[]
+  category     Category    @relation(fields: [categoryId], references: [id])
 
   @@index([createdAt])
   @@index([categoryId, createdAt])
 }
 
 model User {
-  id         String    @id @default(uuid())
-  email      String    @unique
-  mobile     String?   @unique
-  otp        String?
-  otpExpires DateTime?
-  isVerified Boolean   @default(false)
-  createdAt  DateTime  @default(now())
-
-  cart       Cart?
+  id            String         @id @default(uuid())
+  email         String         @unique
+  mobile        String?        @unique
+  otp           String?
+  otpExpires    DateTime?
+  isVerified    Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  cart          Cart?
   customerInfos CustomerInfo[]
-  orders     Order[]
+  orders        Order[]
 
   @@index([mobile])
 }
@@ -59,9 +55,9 @@ model User {
 model Cart {
   id        String     @id @default(uuid())
   userId    String     @unique
+  updatedAt DateTime   @updatedAt
   user      User       @relation(fields: [userId], references: [id])
   items     CartItem[]
-  updatedAt DateTime   @updatedAt
 
   @@index([userId])
 }
@@ -69,12 +65,68 @@ model Cart {
 model CartItem {
   id        String  @id @default(uuid())
   cartId    String
-  cart      Cart    @relation(fields: [cartId], references: [id])
   productId String
-  product   Product @relation(fields: [productId], references: [id])
   name      String
   price     Float
   quantity  Int     @default(1)
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Order {
+  id               String        @id @default(uuid())
+  userId           String
+  orderNumber      String        @unique
+  shipName         String
+  shipEmail        String?
+  shipPhone        String
+  shipAddressLine1 String
+  shipAddressLine2 String?
+  shipCity         String
+  shipState        String
+  shipPostalCode   String
+  shipCountry      String
+  total            Float
+  status           OrderStatus   @default(pending)
+  paymentStatus    PaymentStatus @default(pending)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  user             User          @relation(fields: [userId], references: [id])
+  items            OrderItem[]
+
+  @@index([userId])
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  productId String
+  name      String
+  price     Float
+  quantity  Int
+  subtotal  Float
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model CustomerInfo {
+  id           String   @id @default(uuid())
+  userId       String
+  name         String
+  email        String?
+  phone        String
+  addressLine1 String
+  addressLine2 String?
+  city         String
+  state        String
+  postalCode   String
+  country      String
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 enum OrderStatus {
@@ -92,68 +144,8 @@ enum PaymentStatus {
   refunded
 }
 
-model Order {
-  id            String      @id @default(uuid())
-  userId        String
-  user          User        @relation(fields: [userId], references: [id])
-  orderNumber   String      @unique
-  items         OrderItem[]
-
-  // Shipping details (embedded in original Mongoose schema)
-  shipName      String
-  shipEmail     String?
-  shipPhone     String
-  shipAddressLine1 String
-  shipAddressLine2 String?
-  shipCity      String
-  shipState     String
-  shipPostalCode String
-  shipCountry   String
-
-  total         Float
-  status        OrderStatus   @default(pending)
-  paymentStatus PaymentStatus @default(pending)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-
-  @@index([userId])
-}
-
-model OrderItem {
-  id        String  @id @default(uuid())
-  orderId   String
-  order     Order   @relation(fields: [orderId], references: [id])
-  productId String
-  product   Product @relation(fields: [productId], references: [id])
-  name      String
-  price     Float
-  quantity  Int
-  subtotal  Float
-}
-
-model CustomerInfo {
-  id           String   @id @default(uuid())
-  userId       String
-  user         User     @relation(fields: [userId], references: [id])
-  name         String
-  email        String?
-  phone        String
-  addressLine1 String
-  addressLine2 String?
-  city         String
-  state        String
-  postalCode   String
-  country      String
-  isDefault    Boolean  @default(false)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([userId])
-}
-
-model GalleryImage{
+model GalleryImage {
   id        String   @id @default(uuid())
   url       String
-  
   createdAt DateTime @default(now())
 }
