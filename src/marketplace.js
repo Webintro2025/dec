@@ -29,6 +29,7 @@ export const locations = [
   "uttar pradesh",
   "uttarakhand",
   "west bengal",
+  
 
   // Union Territories
   "andaman and nicobar ",
@@ -40,4 +41,5 @@ export const locations = [
   "ladakh",
   "lakshadweep",
   "puducherry",
+  "delhi Ncr"
 ];
