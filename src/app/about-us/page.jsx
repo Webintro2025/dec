@@ -13,8 +13,7 @@ export default function AboutUsPage() {
         <p>
           Based in New Delhi, India, we are a trusted Wholesaler &amp;
           Distributor specializing in premium decorative lighting solutions.
-          Established as a Proprietorship under the leadership of Ms.
-          Divyanandini Sivakumar, our company has been delivering quality
+          Established as a Proprietorship under the ownership of Mr. Shubham Arya and Ms. Sonia Sivakumar, our company has been delivering quality
           lighting products since its GST registration on 09-11-2022. With an
           annual turnover of 0–40 Lakhs, we continue to grow steadily by
           offering reliable service, timely delivery, and a wide, curated

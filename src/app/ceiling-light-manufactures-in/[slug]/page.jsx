@@ -99,7 +99,7 @@ export default async function LocationPage({ params }) {
           Ceiling Light Manufacturers in {locationName} - Ekotique
         </h2>
         <p className="mb-4 sm:mb-6 max-w-[600px] text-xs xs:text-sm sm:text-base leading-relaxed font-normal">
-          Ekotique, based in New Delhi, India, is a trusted and rapidly growing name among professional <strong>Ceiling Light Manufacturers in {locationName}</strong>, offering premium decorative and functional lighting solutions for modern interiors. Established in 2022 as a proprietorship under the leadership of Ms. Divyanandini Sivakumar, we specialize in wholesale and distribution of high-quality ceiling lights designed to enhance both aesthetics and illumination.
+          Ekotique, based in New Delhi, India, is a trusted and rapidly growing name among professional <strong>Ceiling Light Manufacturers in {locationName}</strong>, offering premium decorative and functional lighting solutions for modern interiors. Established as a Proprietorship under the ownership of Mr. Shubham Arya and Ms. Sonia Sivakumar, we specialize in wholesale and distribution of high-quality ceiling lights designed to enhance both aesthetics and illumination.
           <br />
           <br />
           With a strong focus on design excellence, durability, and customer satisfaction, Ekotique supplies <strong>Ceiling Light Manufacturers in {locationName}</strong>, solutions that are ideal for homes, hotels, offices, cafés, showrooms, restaurants, and interior décor projects across India. Our products reflect a perfect blend of contemporary trends, artistic craftsmanship, and reliable performance.
