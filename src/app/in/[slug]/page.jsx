@@ -99,7 +99,7 @@ export default async function LocationPage({ params }) {
           Bamboo Light Manufacturers in {locationName} – Ekotique
         </h2>
         <p className="mb-4 sm:mb-6 max-w-[600px] text-xs xs:text-sm sm:text-base leading-relaxed font-normal">
-          Ekotique, based in Delhi, India, is a trusted and fast-growing name among reputed <strong>Bamboo Light Manufacturers in {locationName}</strong>, offering thoughtfully designed decorative lighting solutions that blend natural aesthetics with modern elegance. Established as a proprietorship under the leadership of Ms. Divyanandini Sivakumar, Ekotique has been serving the Indian lighting market since its GST registration in 2022, delivering quality-driven products through a dedicated wholesale and distribution network across {locationName}.
+          Ekotique, based in Delhi, India, is a trusted and fast-growing name among reputed <strong>Bamboo Light Manufacturers in {locationName}</strong>, offering thoughtfully designed decorative lighting solutions that blend natural aesthetics with modern elegance. Established as a Proprietorship under the ownership of Mr. Shubham Arya and Ms. Sonia Sivakumar ,Ekotique has been serving the Indian lighting market since its GST registration in 2022, delivering quality-driven products through a dedicated wholesale and distribution network across {locationName}.
 
           As a customer-first wholesaler and distributor, we specialize in stylish, durable, and eco-inspired lighting solutions suitable for homes, hotels, offices, cafes, showrooms, resorts, and interior decor projects. <strong>Bamboo Light Manufacturers in {locationName}</strong>, Our bamboo and decorative lighting collections are designed to enhance ambiance while reflecting refined craftsmanship and sustainable sensibilities.
         </p>
@@ -197,7 +197,7 @@ export default async function LocationPage({ params }) {
     <h3 className="text-base xs:text-lg sm:text-xl font-semibold text-black mb-2 text-center">📞 Contact us today to discuss your requirements, request a quote, or place an order.</h3>
   <p className="text-xs xs:text-sm sm:text-base text-black mb-2 text-center">If you are Looking for the <strong>Best Bamboo Light Manufacturers in {locationName}</strong>? Ekotique is your trusted partner.</p> <br/> 
       <ul className="list-disc pl-4 sm:pl-6 text-xs xs:text-sm sm:text-base text-black mb-2">
-      <li>👉 <strong>Call Now:</strong> +91 9717779552</li>
+      <li>👉 <strong>Call Now:</strong> +91 8821904444</li>
       <li>👉 <strong>Visit Our Website</strong> <a href="https://ekotique.com/">www.ekotique.com</a></li>
       <li>👉 <strong>Our Email Address</strong> – ekotique.deco@gmail.com </li>
     </ul>

@@ -18,7 +18,7 @@ export default function RefundPage() {
 				</p>
 				<p>
 					If you receive defective or damaged product(s), notify us at +91
-					9717779552 on Whatsapp or on email ekotique.deco@gmail.com within 24
+					8821904444 on Whatsapp or on email ekotique.deco@gmail.com within 24
 					hours along with the pictures and a small video showing the defects of
 					the product.
 				</p>
@@ -65,7 +65,7 @@ export default function RefundPage() {
 					the following channels:
 				</p>
 				<ul className="list-disc pl-5 space-y-2 mt-2">
-					<li>Call at +91 9717779552, Monday - Saturday 9:30 am to 6:00 pm IST</li>
+					<li>Call at +91 8821904444, Monday - Saturday 9:30 am to 6:00 pm IST</li>
 					<li>Email at ekotique.deco@gmail.com</li>
 				</ul>
 				<p>

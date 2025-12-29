@@ -193,7 +193,7 @@ export default async function LocationPage({ params }) {
     <h3 className="text-base xs:text-lg sm:text-xl font-semibold text-black mb-2 text-center">📞 Contact us today to discuss your requirements, request a quote, or place an order.</h3>
   <p className="text-xs xs:text-sm sm:text-base text-black mb-2 text-center">If you are Looking for the <strong>Best Ceiling Light Manufacturers in {locationName}</strong>? Ekotique is your trusted partner.</p> <br/> 
       <ul className="list-disc pl-4 sm:pl-6 text-xs xs:text-sm sm:text-base text-black mb-2">
-      <li>👉 <strong>Call Now:</strong> +91 9717779552</li>
+      <li>👉 <strong>Call Now:</strong> +91 8821904444</li>
       <li>👉 <strong>Visit Our Website</strong> <a href="https://ekotique.com/">www.ekotique.com</a></li>
       <li>👉 <strong>Our Email Address</strong> – ekotique.deco@gmail.com </li>
     </ul>

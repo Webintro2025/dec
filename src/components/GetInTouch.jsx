@@ -63,8 +63,8 @@ const GetInTouch = () => {
               </div>
               <div>
                 <h3 className="text-black font-semibold text-sm mb-1">Phone Number</h3>
-                <a href="tel:+919717779552" className="text-black text-sm hover:text-gray-700 transition-colors font-medium">
-                 +91 9717779552
+                <a href="tel:+918821904444" className="text-black text-sm hover:text-gray-700 transition-colors font-medium">
+                 +91 8821904444
                 </a>
               </div>
             </div>
